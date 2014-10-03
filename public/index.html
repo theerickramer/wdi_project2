@@ -1,0 +1,91 @@
+<html>
+<head>
+	<title>Contact List</title>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+	<script src="javascripts/scripts.js"></script>
+	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+	<link href="stylesheets/styles.css" rel="stylesheet">
+
+	<script type="text/template" id="list_template">
+	<span><%= name %></span>
+	</script>
+
+	<script type="text/template" id="contact_template">
+	<img src="<%= picture %>">
+	<h3><%= name %></h3>
+	<p>Age: <%= age %></p>
+	<p>Address: <%= address %></p>
+	<p>Phone: <%= phone_number %></p>
+	<p>Categoery: <%= category %></p>
+	</script>
+
+</head>
+<body>
+
+	<header>
+		<div class="row">
+			<div class="col-md-4 col-md-offset-4">
+				<h1>Contact List</h1>
+			</div>
+		</div>
+	</header>
+
+	<div class="row">
+		<nav>
+			<div class="col-md-4">
+				<ul>
+					<li>
+						<div class="form">
+							<input type="text" name="name" placeholder="Name">
+							<input type="text" name="age" placeholder="Age">
+							<input type="text" name="address" placeholder="Address">
+							<input type="text" name="phone" placeholder="Phone">
+							<input type="text" name="picture" placeholder="Image URL">
+							<input type="text" name="cat_id" placeholder="Category">
+							<button class="add btn btn-primary btn-lg">Add Contact</button>
+						</div>
+					</li>
+					<li><button class="btn btn-primary btn-lg">All Contacts</button></li>
+					<li><button class="btn btn-primary btn-lg">Friends</button></li>
+					<li><button class="btn btn-primary btn-lg">Family</button></li>
+					<li><button class="btn btn-primary btn-lg">Work</button></li>
+				</ul>	
+			</div>
+		</nav>
+
+		<section>
+			<div class="col-md-4 contacts">
+				<ul>
+				</ul>
+			</div>
+		</section>
+	</div>
+
+	<!-- Button trigger modal -->
+	<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+		Add Contact</button>
+
+
+		<!-- Modal -->
+		<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
+					</div>
+					<div class="modal-body">
+						...
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						<button type="button" class="btn btn-primary">Save changes</button>
+					</div>
+				</div>
+			</div>
+		</div> -->
+	</body>
+	</html>
