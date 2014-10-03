@@ -1,18 +1,81 @@
 $(function(){
 
 //CATEGORIES
-	var CategoryView = Backbone.View.extend({
-
-	});
 
 	var CategoryModel = Backbone.Model.extend({
 		urlRoot: '/categories'
 	});
 
-	var CategoryCollection = Backbone.Collection.extend({
-		url: '/categories',
+	var FriendsCollection = Backbone.Collection.extend({
+		url: '/categories/1',
 		model: CategoryModel
 	});
+
+	var friendsCollection = new FriendsCollection();
+
+	var FamilyCollection = Backbone.Collection.extend({
+		url: '/categories/2',
+		model: CategoryModel
+	});
+
+	var familyCollection = new FamilyCollection();
+
+	var WorkCollection = Backbone.Collection.extend({
+		url: '/categories/3',
+		model: CategoryModel
+	});
+
+	var workCollection = new WorkCollection();
+
+	var FriendsView = Backbone.View.extend({
+		initialize: function() {
+			this.listenTo(this.collection, 'change', this.addToFriendsList);
+
+			friendsCollection.fetch();
+		},
+
+		addToFriendsList: function(item){
+			var view = new FriendsView({model: item});
+			view.render();
+			this.$el.append(view.el);
+		}
+	});
+
+	var friendsView = new FriendsView({collection: friendsCollection, el: $('ul.friends') });
+
+	var FamilyView = Backbone.View.extend({
+		initialize: function() {
+
+			this.listenTo(this.collection, 'change', this.addToFamilyList);
+
+			familyCollection.fetch();
+		},
+
+		addToFamilyList: function(item){
+			var view = new FamilyView({model: item});
+			view.render();
+			this.$el.append(view.el);
+		}
+	});
+
+	var familyView = new FamilyView({collection: familyCollection, el: $('ul.family') });
+
+
+	var WorkView = Backbone.View.extend({
+		initialize: function() {
+			this.listenTo(this.collection, 'change', this.addToWorkList);
+
+			workCollection.fetch();
+		},
+
+		addToWorkList: function(item){
+			var view = new WorkView({model: item});
+			view.render();
+			this.$el.append(view.el);
+		}
+	});
+
+	var workView = new WorkView({collection: workCollection, el: $('ul.work') });
 
 //CONTACTS	
 	var ContactModel = Backbone.Model.extend({
@@ -37,7 +100,6 @@ $(function(){
 			var view = new ContactView({model: item});
 			view.render();
 			this.$el.append(view.el);
-			console.log(view.el)// this seems to be the problem?
 		}
 	});
 
@@ -45,7 +107,7 @@ $(function(){
 
 	var ContactView = Backbone.View.extend({
 		tagName: 'li',
-		template: _.template($('#list_template').html() ),
+		template: _.template($('#contact_template').html() ),
 
 		initialize: function(){
 			this.listenTo(this.model, 'change', this.render);
@@ -68,8 +130,8 @@ $(function(){
 		},
 
 		render: function(){
+			console.log(this.model.attributes)
 			this.$el.html(this.template(this.model.attributes))
-			console.log(this.$el);
 		}
 
 
@@ -87,7 +149,7 @@ $(function(){
 			var phone = this.$el.find('input[name="phone"]').val(); 
 			var picture = this.$el.find('input[name="picture"]').val(); 
 			var cat_id = this.$el.find('input[name="cat_id"]').val(); 
-			
+
 			this.collection.create({
 				name: name,
 				age: age,
@@ -108,9 +170,23 @@ $(function(){
 
 	var formView = new FormView({ el: $('.form'), collection: contactCollection});	
 
+// Router
+
+	var AppRouter = Backbone.Router.extend({
+		routes: {
+			'/contact/:id': 'contact',
+			'/form': 'form'
+		}
+	});
+
+	var router = new AppRouter;
+
+	router.on('route:contact', function(){
+		var modal = $('modal');
+		model.html()
+	})
 
 
-		
 
 
 

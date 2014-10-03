@@ -5,6 +5,7 @@
 	<script src="https://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.7.0/underscore-min.js"></script>
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 	<script src="javascripts/scripts.js"></script>
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="stylesheets/styles.css" rel="stylesheet">
@@ -19,7 +20,7 @@
 	<p>Age: <%= age %></p>
 	<p>Address: <%= address %></p>
 	<p>Phone: <%= phone_number %></p>
-	<p>Categoery: <%= category %></p>
+	<p>Category: <%= category_id %></p>
 	</script>
 
 </head>
@@ -60,32 +61,36 @@
 			<div class="col-md-4 contacts">
 				<ul class="list">
 				</ul>
+				<ul class="friends">
+				</ul>
+				<ul class="family">
+				</ul>
+				<ul class="work">
+				</ul>
 			</div>
 		</section>
 	</div>
 
-	<!-- Button trigger modal -->
+<!-- Modal -->
 	<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
 		Add Contact</button>
 
-
-		<!-- Modal -->
-		<!-- <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-						<h4 class="modal-title" id="myModalLabel">Modal title</h4>
-					</div>
-					<div class="modal-body">
-						...
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						<button type="button" class="btn btn-primary">Save changes</button>
-					</div>
-				</div>
-			</div>
-		</div> -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+        <h4 class="modal-title" id="myModalLabel">New Contact</h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div> -->
+</div>
 	</body>
 	</html>
