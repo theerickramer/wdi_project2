@@ -31,20 +31,20 @@ $(function(){
 			this.listenTo(this.collection, 'add', this.addToList);
 
 			contactCollection.fetch();
-			console.log(contactCollection);
 		},
 
 		addToList: function(item){
 			var view = new ContactView({model: item});
 			view.render();
 			this.$el.append(view.el);
+			console.log(view.el)// this seems to be the problem?
 		}
 	});
 
-	var contactList = new ContactListView({collection: contactCollection, el: $('ul') });
+	var contactList = new ContactListView({collection: contactCollection, el: $('ul.list') });
 
 	var ContactView = Backbone.View.extend({
-		tagname: 'li',
+		tagName: 'li',
 		template: _.template($('#list_template').html() ),
 
 		initialize: function(){
@@ -69,6 +69,7 @@ $(function(){
 
 		render: function(){
 			this.$el.html(this.template(this.model.attributes))
+			console.log(this.$el);
 		}
 
 
