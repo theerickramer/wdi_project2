@@ -11,7 +11,18 @@
 	<link href="stylesheets/styles.css" rel="stylesheet">
 
 	<script type="text/template" id="list_template">
-	<span><%= name %></span>
+	<a href="#contact/<%= id %>" id="<%= id %>" data-toggle="modal" data-target="#myModal"><%= name %></a>
+	</script>
+
+	<script type="text/template" id="form_template">
+	<div class="form">
+	<input type="text" name="name" placeholder="Name">
+	<input type="text" name="age" placeholder="Age">
+	<input type="text" name="address" placeholder="Address">
+	<input type="text" name="phone" placeholder="Phone">
+	<input type="text" name="picture" placeholder="Image URL">
+	<input type="text" name="cat_id" placeholder="Category">
+	</div>
 	</script>
 
 	<script type="text/template" id="contact_template">
@@ -22,6 +33,28 @@
 	<p>Phone: <%= phone_number %></p>
 	<p>Category: <%= category_id %></p>
 	</script>
+
+	<script type="text/template" id="modal_form_footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" class="btn btn-primary editButton" data-dismiss="modal">Add Contact</button>
+	</script>
+
+	<script type="text/template" id="modal_contact_footer">
+	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	<button type="button" class="btn btn-primary modalButton">Edit</button>
+	</script>
+
+	<script type="text/template" id="edit_template">
+	<div class="form">
+	<img src="<%= picture %>">
+	<input type="text" name="name" value="<%= picture %>">
+	<input type="text" name="name" value="<%= name %>">
+	<input type="text" name="age" value="<%= age %>">
+	<input type="text" name="address" value="<%= address %>">
+	<input type="text" name="phone" value="<%= phone_number %>">
+	<input type="text" name="picture" value="<%= category_id %>">
+	</div>
+	</script>	
 
 </head>
 <body>
@@ -40,57 +73,49 @@
 				<ul>
 					<li>
 						<div class="form">
-							<input type="text" name="name" placeholder="Name">
-							<input type="text" name="age" placeholder="Age">
-							<input type="text" name="address" placeholder="Address">
-							<input type="text" name="phone" placeholder="Phone">
-							<input type="text" name="picture" placeholder="Image URL">
-							<input type="text" name="cat_id" placeholder="Category">
-							<button class="add btn btn-primary btn-lg">Add Contact</button>
-						</div>
-					</li>
-					<li><button class="btn btn-primary btn-lg">All Contacts</button></li>
-					<li><button class="btn btn-primary btn-lg">Friends</button></li>
-					<li><button class="btn btn-primary btn-lg">Family</button></li>
-					<li><button class="btn btn-primary btn-lg">Work</button></li>
-				</ul>	
-			</div>
-		</nav>
+							<button class="openModal btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+								New Contact</button>
+							</li>
+							<li><a href='#all' class="btn btn-primary btn-lg">All Contacts</a></li>
+							<li><a href='#friends' class="btn btn-primary btn-lg">Friends</a></li>
+							<li><a href='#family' class="btn btn-primary btn-lg">Family</a></li>
+							<li><a href='#work' class="btn btn-primary btn-lg">Work</a></li>
+						</ul>	
+					</div>
+				</nav>
 
-		<section>
-			<div class="col-md-4 contacts">
-				<ul class="list">
-				</ul>
-				<ul class="friends">
+				<section>
+					<div class="col-md-4 contacts">
+						<ul class="list">
+						</ul>
+			<!-- 	<ul class="friends">
 				</ul>
 				<ul class="family">
 				</ul>
 				<ul class="work">
-				</ul>
+				</ul> -->
 			</div>
 		</section>
 	</div>
 
-<!-- Modal -->
-	<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-		Add Contact</button>
-
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-        <h4 class="modal-title" id="myModalLabel">New Contact</h4>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div> -->
-</div>
-	</body>
-	</html>
+	<!-- Modal -->
+	
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+					<!-- <h4 class="modal-title" id="myModalLabel">Contact</h4> -->
+				</div>
+				<div class="modal-body">
+					...
+				</div>
+				<div class="modal-footer">
+			<!-- 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary modalButton" data-dismiss="modal">Save changes</button> -->
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

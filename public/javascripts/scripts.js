@@ -1,6 +1,6 @@
 $(function(){
 
-//CATEGORIES
+	//CATEGORIES
 
 	var CategoryModel = Backbone.Model.extend({
 		urlRoot: '/categories'
@@ -37,6 +37,7 @@ $(function(){
 		addToFriendsList: function(item){
 			var view = new FriendsView({model: item});
 			view.render();
+			console.log(view.el)
 			this.$el.append(view.el);
 		}
 	});
@@ -77,7 +78,7 @@ $(function(){
 
 	var workView = new WorkView({collection: workCollection, el: $('ul.work') });
 
-//CONTACTS	
+	//CONTACTS	
 	var ContactModel = Backbone.Model.extend({
 		urlRoot: '/contacts'
 	});
@@ -107,7 +108,7 @@ $(function(){
 
 	var ContactView = Backbone.View.extend({
 		tagName: 'li',
-		template: _.template($('#contact_template').html() ),
+		template: _.template($('#list_template').html() ),
 
 		initialize: function(){
 			this.listenTo(this.model, 'change', this.render);
@@ -121,7 +122,7 @@ $(function(){
 
 		editContact: function(){
 			this.model.set()
-		// make inputs and set them 
+			// make inputs and set them 
 			this.model.save();
 		},
 
@@ -130,7 +131,6 @@ $(function(){
 		},
 
 		render: function(){
-			console.log(this.model.attributes)
 			this.$el.html(this.template(this.model.attributes))
 		}
 
@@ -139,7 +139,7 @@ $(function(){
 
 	var FormView = Backbone.View.extend({
 		events: {
-			'click .add' : 'addContact',
+			'click .modalButton' : 'addContact',
 		},
 
 		addContact: function(){
@@ -168,31 +168,67 @@ $(function(){
 		}
 	});
 
-	var formView = new FormView({ el: $('.form'), collection: contactCollection});	
+	var formView = new FormView({ el: $('.modal'), collection: contactCollection});	
 
-// Router
+	function render(){
+		this.view.render
+	}
 
-	var AppRouter = Backbone.Router.extend({
-		routes: {
-			'/contact/:id': 'contact',
-			'/form': 'form'
-		}
-	});
+	// Router
 
-	var router = new AppRouter;
+	// var AppRouter = Backbone.Router.extend({
+	// 	routes: {
+	// 		'friends' : 'friends',
+	// 		'family' : 'family',
+	// 		'work' : 'work',
+	// 		'contact/:id' : 'contact',
+	// 		'form': 'form'
+	// 	}
+	// });
 
-	router.on('route:contact', function(){
-		var modal = $('modal');
-		model.html()
+	// var router = new AppRouter;
+
+	// router.on('route:form', function(){
+	// 	var modal = $('.modal-content');
+	// 	var formTemplate = _.template($('#form_template').html() )
+	// 	modal.html(formTemplate);
+	// })
+
+	// router.on('route:contact', function(){
+	// 	console.log('hello');
+	// 	var contactTemplate = _.template($('#contact_template').html() )
+	// 	var modal = $('.modal-body');
+	// 	modal.html(contactTemplate);
+	// })
+
+	// router.on('route:friends', function(){
+
+	// })
+
+	// Backbone.history.start();
+
+	$('button.openModal').on('click', function(){
+		var modal = $('.modal-body');
+		var formTemplate = _.template($('#form_template').html() )
+		modal.html(formTemplate);
+		var formFooter = _.template($('#modal_form_footer').html() );
+		$('.modal-footer').html(formFooter);
 	})
 
-
-
-
-
-
-
-
+	$('ul.list').on('click', function(){
+		var contactTemplate = _.template($('#contact_template').html() );
+		var model = contactCollection.get(event.target.id);
+		var modal = $('.modal-body');
+		modal.html(contactTemplate(model.attributes));
+		var contactFooter = _.template($('#modal_contact_footer').html() );
+		$('.modal-footer').html(contactFooter);
+		$('.editButton').on('click', function(){
+			
+			debugger;
+			// var editTemplate = _.template($('#edit_template').html() );
+			// modal.html(editTemplate(model.attributes));
+		})
+	})
 
 
 });
