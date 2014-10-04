@@ -11,7 +11,7 @@
 	<link href="stylesheets/styles.css" rel="stylesheet">
 
 	<script type="text/template" id="list_template">
-	<a href="#contact/<%= id %>" id="<%= id %>" data-toggle="modal" data-target="#myModal"><%= name %></a>
+	<a href="#" data-toggle="modal" data-target="#myModal"><%= name %></a>
 	</script>
 
 	<script type="text/template" id="form_template">
@@ -41,13 +41,18 @@
 	</script>
 
 	<script type="text/template" id="modal_form_footer">
-	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary modalButton" data-dismiss="modal">Add Contact</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+	<button type="button" class="btn btn-primary save" data-dismiss="modal">Save</button>
 	</script>
 
 	<script type="text/template" id="modal_contact_footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary editButton">Edit</button>
+	<button type="button" class="btn btn-primary edit">Edit</button>
+	</script>
+
+	<script type="text/template" id="modal_edit_footer">
+	<button type="button" class="btn btn-default delete" data-dismiss="modal">Delete Contact</button>
+	<button type="button" class="btn btn-primary update" data-dismiss="modal">Update</button>
 	</script>
 
 	<script type="text/template" id="edit_template">
