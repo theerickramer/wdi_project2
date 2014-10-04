@@ -21,7 +21,12 @@
 	<input type="text" name="address" placeholder="Address">
 	<input type="text" name="phone" placeholder="Phone">
 	<input type="text" name="picture" placeholder="Image URL">
-	<input type="text" name="cat_id" placeholder="Category">
+	<select class="dropdown dropdown-toggle form-control cat_id">
+	<option class="dropdown-toggle" value="disabled">Category</option>
+	<option value="1">Friends</option>
+	<option value="2">Family</option>
+	<option value="3">Work</option>
+	</select>
 	</div>
 	</script>
 
@@ -31,28 +36,33 @@
 	<p>Age: <%= age %></p>
 	<p>Address: <%= address %></p>
 	<p>Phone: <%= phone_number %></p>
-	<p>Category: <%= category_id %></p>
+	<p>Category: 
+	<%= category_id == 1 ? 'Friends' : category_id == 2 ? 'Family' : 'Work' %></p> 
 	</script>
 
 	<script type="text/template" id="modal_form_footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary editButton" data-dismiss="modal">Add Contact</button>
+	<button type="button" class="btn btn-primary modalButton" data-dismiss="modal">Add Contact</button>
 	</script>
 
 	<script type="text/template" id="modal_contact_footer">
 	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-	<button type="button" class="btn btn-primary modalButton">Edit</button>
+	<button type="button" class="btn btn-primary editButton">Edit</button>
 	</script>
 
 	<script type="text/template" id="edit_template">
 	<div class="form">
-	<img src="<%= picture %>">
-	<input type="text" name="name" value="<%= picture %>">
 	<input type="text" name="name" value="<%= name %>">
 	<input type="text" name="age" value="<%= age %>">
 	<input type="text" name="address" value="<%= address %>">
 	<input type="text" name="phone" value="<%= phone_number %>">
-	<input type="text" name="picture" value="<%= category_id %>">
+	<input type="text" name="picture" value="<%= picture %>">
+	<select class="dropdown dropdown-toggle form-control cat_id">
+	<option class="dropdown-toggle" value="disabled"><%= category_id == 1 ? 'Friends' : category_id == 2 ? 'Family' : 'Work' %></option>
+	<%= category_id != 1 ? '<option value="1">Friends</option>' : '' %>
+	<%= category_id != 2 ? '<option value="2">Family</option>' : '' %>
+	<%= category_id != 3 ? '<option value="3">Work</option>' : '' %>
+	</select>
 	</div>
 	</script>	
 
@@ -112,10 +122,10 @@
 				</div>
 				<div class="modal-footer">
 			<!-- 		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary modalButton" data-dismiss="modal">Save changes</button> -->
-				</div>
-			</div>
+			<button type="button" class="btn btn-primary modalButton" data-dismiss="modal">Save changes</button> -->
 		</div>
 	</div>
+</div>
+</div>
 </body>
 </html>

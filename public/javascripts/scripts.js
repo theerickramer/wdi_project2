@@ -131,6 +131,7 @@ $(function(){
 		},
 
 		render: function(){
+
 			this.$el.html(this.template(this.model.attributes))
 		}
 
@@ -148,8 +149,8 @@ $(function(){
 			var address = this.$el.find('input[name="address"]').val(); 
 			var phone = this.$el.find('input[name="phone"]').val(); 
 			var picture = this.$el.find('input[name="picture"]').val(); 
-			var cat_id = this.$el.find('input[name="cat_id"]').val(); 
-
+			var cat_id = this.$el.find(('.dropdown option:selected')).val(); 
+	
 			this.collection.create({
 				name: name,
 				age: age,
@@ -159,12 +160,12 @@ $(function(){
 				category_id: cat_id
 			})
 
-			this.$el.find('input[name="name"]').val('');
-			this.$el.find('input[name="age"]').val('');
-			this.$el.find('input[name="address"]').val(''); 
-			this.$el.find('input[name="phone"]').val(''); 
-			this.$el.find('input[name="picture"]').val(''); 
-			this.$el.find('input[name="cat_id"]').val('');
+			// this.$el.find('input[name="name"]').val('');
+			// this.$el.find('input[name="age"]').val('');
+			// this.$el.find('input[name="address"]').val(''); 
+			// this.$el.find('input[name="phone"]').val(''); 
+			// this.$el.find('input[name="picture"]').val(''); 
+			// this.$el.find('input[name="cat_id"]').val('');
 		}
 	});
 
@@ -223,10 +224,8 @@ $(function(){
 		var contactFooter = _.template($('#modal_contact_footer').html() );
 		$('.modal-footer').html(contactFooter);
 		$('.editButton').on('click', function(){
-			
-			debugger;
-			// var editTemplate = _.template($('#edit_template').html() );
-			// modal.html(editTemplate(model.attributes));
+			var editTemplate = _.template($('#edit_template').html() );
+			modal.html(editTemplate(model.attributes));
 		})
 	})
 
