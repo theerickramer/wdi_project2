@@ -158,17 +158,49 @@ $(function(){
 				});
 			} else {
 				createContact(picture);
+			};
+
+			function isEmpty(field) {
+				if (field.val() == '') {
+					field.css('border', '1px solid #F00');
+				} 
 			}
 
 			function createContact(image){
-				contactCollection.create({
-				name: name,
-				age: age,
-				address: address,
-				phone_number: phone,
-				picture: image,
-				category_id: cat_id
-			})
+				if (name.length > 0 && age > 0 && address.length > 0 && phone_number.length > 0 && picture.length > 0 && category_id > 0) {
+					contactCollection.create({
+					name: name,
+					age: age,
+					address: address,
+					phone_number: phone,
+					picture: image,
+					category_id: cat_id
+					});
+				} else {
+					function reopenModal() {
+						$('.openModal').trigger('click');
+						$('.modal-header').text('Please Complete All Fields');
+						$('.modal-header').css('color', '#F00');
+						$('.modal').find('input[name="name"]').val(name);
+						$('.modal').find('input[name="age"]').val(age);
+						$('.modal').find('input[name="address"]').val(address);
+						$('.modal').find('input[name="phone"]').val(phone);
+						$('.modal').find(('.dropdown option:selected')).val(cat_id);
+						$('.modal').find('input[name="picture"]').val(picture);
+						isEmpty($('.modal').find($('input[name="name"]')))
+						isEmpty($('.modal').find($('input[name="age"]')))
+						isEmpty($('.modal').find($('input[name="address"]')))
+						isEmpty($('.modal').find($('input[name="phone"]')))
+						isEmpty($('.modal').find($('input[name="picture"]')))
+						isEmpty($('.modal').find($('select')))
+						$('.modal .btn').on('click', function(){
+							$('.modal-header').text('');
+						})
+
+					}
+
+					setTimeout(reopenModal, 500);
+				}
 			}
 
 			
