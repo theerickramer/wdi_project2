@@ -42,8 +42,6 @@ $(function(){
 		}
 	});
 
-	var friendsView = new FriendsView({collection: friendsCollection, el: $('ul.friends') });
-
 	var FamilyView = Backbone.View.extend({
 		initialize: function() {
 
@@ -103,7 +101,7 @@ $(function(){
 		}
 	});
 
-	var contactList = new ContactListView({collection: contactCollection, el: $('ul.list') });
+	var contactList = new ContactListView({collection: contactCollection, el: $('ul.all') });
 
 	var ContactView = Backbone.View.extend({
 		tagName: 'li',
@@ -201,7 +199,7 @@ $(function(){
 	})
 
 	router.on('route:friends', function(){
-		console.log('hello');
+		
 	})
 
 	Backbone.history.start();
@@ -214,7 +212,7 @@ $(function(){
 		$('.modal-footer').html(formFooter);
 	})
 
-	$('ul.list').on('click', function(){
+	$('.list').on('click', function(){
 		var contactTemplate = _.template($('#contact_template').html() );
 		// var model = contactCollection.get(event.target.id);
 		var model = contactCollection.findWhere({name: event.target.text});
@@ -250,5 +248,36 @@ $(function(){
 		})
 	})
 
+	$('button.all').on('click', function(){
+		$('.list').html('<ul class=all>')
+		var all = contactCollection
+		all.forEach(function(contact){
+			$('ul.all').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + contact.attributes.name + '</a></li>')
+		});
+	});
+
+	$('button.friends').on('click', function(){
+		$('.list').html('<ul class=friends>')
+		var friends = contactCollection.where({category_id: 1});
+		friends.forEach(function(friend){
+			$('ul.friends').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + friend.attributes.name + '</a></li>')
+		});
+	});
+
+	$('button.family').on('click', function(){
+		$('.list').html('<ul class=family>')
+		var family = contactCollection.where({category_id: 2});
+		family.forEach(function(member){
+			$('ul.family').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + member.attributes.name + '</a></li>')
+		});
+	});
+
+	$('button.work').on('click', function(){
+		$('.list').html('<ul class=work>')
+		var work = contactCollection.where({category_id: 3});
+		work.forEach(function(worker){
+			$('ul.work').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + worker.attributes.name + '</a></li>')
+		});
+	});
 
 });
