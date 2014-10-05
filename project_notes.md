@@ -1,8 +1,5 @@
 TODO: 
 
-work on edit function
-add inputs?
+jquery sorting - updates don't registers until refresh. rerender functions?
 
-figure out creation id problem
-
-button events in view to trigger collections render
+refactor to backbone - button events in view to trigger collections render?
