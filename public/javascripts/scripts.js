@@ -145,17 +145,33 @@ $(function(){
 			var age = this.$el.find('input[name="age"]').val();
 			var address = this.$el.find('input[name="address"]').val(); 
 			var phone = this.$el.find('input[name="phone"]').val(); 
-			var picture = this.$el.find('input[name="picture"]').val(); 
 			var cat_id = this.$el.find(('.dropdown option:selected')).val(); 
+			var picture = this.$el.find('input[name="picture"]').val();
+			if ($('.randomImage').prop('checked') == true) {
+				$.ajax({
+				  url: 'http://api.randomuser.me/',
+				  dataType: 'json',
+				  success: function(data){
+				    var randomPicture = data.results[0].user.picture.thumbnail;
+				    createContact(randomPicture);
+				  }
+				});
+			} else {
+				createContact(picture);
+			}
 
-			this.collection.create({
+			function createContact(image){
+				contactCollection.create({
 				name: name,
 				age: age,
 				address: address,
 				phone_number: phone,
-				picture: picture,
+				picture: image,
 				category_id: cat_id
 			})
+			}
+
+			
 
 			// this.$el.find('input[name="name"]').val('');
 			// this.$el.find('input[name="age"]').val('');
