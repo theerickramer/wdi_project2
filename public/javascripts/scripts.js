@@ -235,35 +235,35 @@ function render(){
 
 	// Router
 
-	var AppRouter = Backbone.Router.extend({
-		routes: {
-			'all' : 'all',
-			'friends' : 'friends',
-			'family' : 'family',
-			'work' : 'work'
-		}
-	});
+	// var AppRouter = Backbone.Router.extend({
+	// 	routes: {
+	// 		'all' : 'all',
+	// 		'friends' : 'friends',
+	// 		'family' : 'family',
+	// 		'work' : 'work'
+	// 	}
+	// });
 
-	var router = new AppRouter;
+	// var router = new AppRouter;
 
-	router.on('route:form', function(){
-		var modal = $('.modal-content');
-		var formTemplate = _.template($('#form_template').html() )
-		modal.html(formTemplate);
-	})
+	// router.on('route:form', function(){
+	// 	var modal = $('.modal-content');
+	// 	var formTemplate = _.template($('#form_template').html() )
+	// 	modal.html(formTemplate);
+	// })
 
-	router.on('route:contact', function(){
-		console.log('hello');
-		var contactTemplate = _.template($('#contact_template').html() )
-		var modal = $('.modal-body');
-		modal.html(contactTemplate);
-	})
+	// router.on('route:contact', function(){
+	// 	console.log('hello');
+	// 	var contactTemplate = _.template($('#contact_template').html() )
+	// 	var modal = $('.modal-body');
+	// 	modal.html(contactTemplate);
+	// })
 
-	router.on('route:friends', function(){
+	// router.on('route:friends', function(){
 		
-	})
+	// })
 
-	Backbone.history.start();
+	// Backbone.history.start();
 
 	$('button.openModal').on('click', function(){
 		var modal = $('.modal-body');
@@ -366,9 +366,7 @@ function render(){
 							map: map,
 							position: results[0].geometry.location
 						});
-					} else {
-						alert('Geocode was not successful for the following reason: ' + status);
-					}
+					} 
 				});
 			}
 
