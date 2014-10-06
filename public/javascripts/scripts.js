@@ -2,79 +2,79 @@ $(function(){
 
 	//CATEGORIES
 
-	var CategoryModel = Backbone.Model.extend({
-		urlRoot: '/categories'
-	});
+	// var CategoryModel = Backbone.Model.extend({
+	// 	urlRoot: '/categories'
+	// });
 
-	var FriendsCollection = Backbone.Collection.extend({
-		url: '/categories/1',
-		model: CategoryModel
-	});
+	// var FriendsCollection = Backbone.Collection.extend({
+	// 	url: '/categories/1',
+	// 	model: CategoryModel
+	// });
 
-	var friendsCollection = new FriendsCollection();
+	// var friendsCollection = new FriendsCollection();
 
-	var FamilyCollection = Backbone.Collection.extend({
-		url: '/categories/2',
-		model: CategoryModel
-	});
+	// var FamilyCollection = Backbone.Collection.extend({
+	// 	url: '/categories/2',
+	// 	model: CategoryModel
+	// });
 
-	var familyCollection = new FamilyCollection();
+	// var familyCollection = new FamilyCollection();
 
-	var WorkCollection = Backbone.Collection.extend({
-		url: '/categories/3',
-		model: CategoryModel
-	});
+	// var WorkCollection = Backbone.Collection.extend({
+	// 	url: '/categories/3',
+	// 	model: CategoryModel
+	// });
 
-	var workCollection = new WorkCollection();
+	// var workCollection = new WorkCollection();
 
-	var FriendsView = Backbone.View.extend({
-		initialize: function() {
-			this.listenTo(this.collection, 'change', this.addToFriendsList);
+	// var FriendsView = Backbone.View.extend({
+	// 	initialize: function() {
+	// 		this.listenTo(this.collection, 'change', this.addToFriendsList);
 
-			friendsCollection.fetch();
-		},
+	// 		friendsCollection.fetch();
+	// 	},
 
-		addToFriendsList: function(item){
-			var view = new FriendsView({model: item});
-			view.render();
-			console.log(view.el)
-			this.$el.append(view.el);
-		}
-	});
+	// 	addToFriendsList: function(item){
+	// 		var view = new FriendsView({model: item});
+	// 		view.render();
+	// 		console.log(view.el)
+	// 		this.$el.append(view.el);
+	// 	}
+	// });
 
-	var FamilyView = Backbone.View.extend({
-		initialize: function() {
+	// var FamilyView = Backbone.View.extend({
+	// 	initialize: function() {
 
-			this.listenTo(this.collection, 'change', this.addToFamilyList);
+	// 		this.listenTo(this.collection, 'change', this.addToFamilyList);
 
-			familyCollection.fetch();
-		},
+	// 		familyCollection.fetch();
+	// 	},
 
-		addToFamilyList: function(item){
-			var view = new FamilyView({model: item});
-			view.render();
-			this.$el.append(view.el);
-		}
-	});
+	// 	addToFamilyList: function(item){
+	// 		var view = new FamilyView({model: item});
+	// 		view.render();
+	// 		this.$el.append(view.el);
+	// 	}
+	// });
 
-	var familyView = new FamilyView({collection: familyCollection, el: $('ul.family') });
+	// var familyView = new FamilyView({collection: familyCollection, el: $('ul.family') });
 
 
-	var WorkView = Backbone.View.extend({
-		initialize: function() {
-			this.listenTo(this.collection, 'change', this.addToWorkList);
+	// var WorkView = Backbone.View.extend({
+	// 	initialize: function() {
+	// 		this.listenTo(this.collection, 'change', this.addToWorkList);
 
-			workCollection.fetch();
-		},
+	// 		workCollection.fetch();
+	// 	},
 
-		addToWorkList: function(item){
-			var view = new WorkView({model: item});
-			view.render();
-			this.$el.append(view.el);
-		}
-	});
+	// 	addToWorkList: function(item){
+	// 		var view = new WorkView({model: item});
+	// 		view.render();
+	// 		this.$el.append(view.el);
+	// 	}
+	// });
 
-	var workView = new WorkView({collection: workCollection, el: $('ul.work') });
+	// var workView = new WorkView({collection: workCollection, el: $('ul.work') });
 
 	//CONTACTS	
 	var ContactModel = Backbone.Model.extend({
@@ -273,6 +273,39 @@ function render(){
 		$('.modal-footer').html(formFooter);		
 	})
 
+
+	$('ul.all').sortable();
+
+	$('li.friends').droppable({
+		drop: function( event, ui ) {
+      var model = contactCollection.findWhere({name: ui.draggable.context.innerText})
+      model.set({category_id: 1});
+      model.save();
+      var currentList = $('.list').children().attr('class').split(' ')[0];
+    	$('button.' + currentList).trigger('click');	
+		}
+	});
+	$('li.family').droppable({
+		drop: function( event, ui ) {
+      var model = contactCollection.findWhere({name: ui.draggable.context.innerText})
+      model.set({category_id: 2});
+      model.save();
+      var currentList = $('.list').children().attr('class').split(' ')[0];
+    	$('button.' + currentList).trigger('click');	
+		}
+	});
+	$('li.work').droppable({
+		drop: function( event, ui ) {
+      var model = contactCollection.findWhere({name: ui.draggable.context.innerText})
+      model.set({category_id: 3});
+      model.save();
+      var currentList = $('.list').children().attr('class').split(' ')[0];
+    	$('button.' + currentList).trigger('click');	
+		}
+	});
+
+
+
 	$('.list').on('click', function(){
 		var contactTemplate = _.template($('#contact_template').html() );
 		// var model = contactCollection.get(event.target.id);
@@ -303,6 +336,8 @@ function render(){
 					category_id: cat_id
 				});
 				model.save();
+				var currentList = $('.list').children().attr('class').split(' ')[0];
+	    	$('button.' + currentList).trigger('click');	
 			});
 			$('.delete').on('click', function(){
 				model.destroy()
@@ -341,7 +376,6 @@ function render(){
 
 		}
 
-
 		initializeMap();
 	})
 
@@ -351,6 +385,7 @@ $('button.all').on('click', function(){
 	all.forEach(function(contact){
 		$('ul.all').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + contact.attributes.name + '</a></li>')
 	});
+	$('ul.all').sortable();
 });
 
 $('button.friends').on('click', function(){
@@ -359,6 +394,7 @@ $('button.friends').on('click', function(){
 	friends.forEach(function(friend){
 		$('ul.friends').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + friend.attributes.name + '</a></li>')
 	});
+	$('ul.friends').sortable();
 });
 
 $('button.family').on('click', function(){
@@ -367,6 +403,7 @@ $('button.family').on('click', function(){
 	family.forEach(function(member){
 		$('ul.family').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + member.attributes.name + '</a></li>')
 	});
+	$('ul.family').sortable();
 });
 
 $('button.work').on('click', function(){
@@ -375,6 +412,7 @@ $('button.work').on('click', function(){
 	work.forEach(function(worker){
 		$('ul.work').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + worker.attributes.name + '</a></li>')
 	});
+	$('ul.work').sortable();
 });
 
 $('input.search').on('keyup', function(){
