@@ -152,12 +152,12 @@ $(function(){
 
 			if ($('.randomImage').prop('checked') == true) {
 				$.ajax({
-				  url: 'http://api.randomuser.me/',
-				  dataType: 'json',
-				  success: function(data){
-				    var randomPicture = data.results[0].user.picture.thumbnail;
-				    createContact(randomPicture);
-				  }
+					url: 'http://api.randomuser.me/',
+					dataType: 'json',
+					success: function(data){
+						var randomPicture = data.results[0].user.picture.thumbnail;
+						createContact(randomPicture);
+					}
 				});
 				randomImage = true;
 			} else {
@@ -173,12 +173,12 @@ $(function(){
 			function createContact(image){
 				if (name.length > 0 && age > 0 && address.length > 0 && phone.length > 0 && picture.length > 0 && cat_id > 0) {
 					contactCollection.create({
-					name: name,
-					age: age,
-					address: address,
-					phone_number: phone,
-					picture: image,
-					category_id: cat_id
+						name: name,
+						age: age,
+						address: address,
+						phone_number: phone,
+						picture: image,
+						category_id: cat_id
 					});
 				} else {
 					function reopenModal() {
@@ -227,11 +227,11 @@ $(function(){
 		}
 	});
 
-	var formView = new FormView({ el: $('.modal'), collection: contactCollection});	
+var formView = new FormView({ el: $('.modal'), collection: contactCollection});	
 
-	function render(){
-		this.view.render
-	}
+function render(){
+	this.view.render
+}
 
 	// Router
 
@@ -270,7 +270,7 @@ $(function(){
 		var formTemplate = _.template($('#form_template').html() )
 		modal.html(formTemplate);
 		var formFooter = _.template($('#modal_form_footer').html() );
-		$('.modal-footer').html(formFooter);
+		$('.modal-footer').html(formFooter);		
 	})
 
 	$('.list').on('click', function(){
@@ -279,6 +279,7 @@ $(function(){
 		var model = contactCollection.findWhere({name: event.target.text});
 		var modal = $('.modal-body');
 		modal.html(contactTemplate(model.attributes));
+
 		var contactFooter = _.template($('#modal_contact_footer').html() );
 		$('.modal-footer').html(contactFooter);
 		$('.edit').on('click', function(){
@@ -307,49 +308,84 @@ $(function(){
 				model.destroy()
 			});
 		})
+
+		function initializeMap() {
+			var geocoder = new google.maps.Geocoder();
+			var mapOptions = {
+				zoom: 9,
+				center: new google.maps.LatLng(-34.397, 150.644)
+			};
+
+			var map = new google.maps.Map(document.getElementById('map-canvas'),
+				mapOptions);
+
+			function codeAddress() {
+				var address = model.attributes.address;
+				geocoder.geocode( { 'address': address}, function(results, status) {
+					if (status == google.maps.GeocoderStatus.OK) {
+						$('#myModal').on('shown.bs.modal', function(){
+							google.maps.event.trigger(map, 'resize');
+							map.setCenter(results[0].geometry.location);
+						});
+						var marker = new google.maps.Marker({
+							map: map,
+							position: results[0].geometry.location
+						});
+					} else {
+						alert('Geocode was not successful for the following reason: ' + status);
+					}
+				});
+			}
+
+			codeAddress();
+
+		}
+
+
+		initializeMap();
 	})
 
-	$('button.all').on('click', function(){
-		$('.list').html('<ul class=all>')
-		var all = contactCollection
-		all.forEach(function(contact){
-			$('ul.all').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + contact.attributes.name + '</a></li>')
-		});
+$('button.all').on('click', function(){
+	$('.list').html('<ul class=all>')
+	var all = contactCollection
+	all.forEach(function(contact){
+		$('ul.all').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + contact.attributes.name + '</a></li>')
 	});
+});
 
-	$('button.friends').on('click', function(){
-		$('.list').html('<ul class=friends>')
-		var friends = contactCollection.where({category_id: 1});
-		friends.forEach(function(friend){
-			$('ul.friends').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + friend.attributes.name + '</a></li>')
-		});
+$('button.friends').on('click', function(){
+	$('.list').html('<ul class=friends>')
+	var friends = contactCollection.where({category_id: 1});
+	friends.forEach(function(friend){
+		$('ul.friends').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + friend.attributes.name + '</a></li>')
 	});
+});
 
-	$('button.family').on('click', function(){
-		$('.list').html('<ul class=family>')
-		var family = contactCollection.where({category_id: 2});
-		family.forEach(function(member){
-			$('ul.family').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + member.attributes.name + '</a></li>')
-		});
+$('button.family').on('click', function(){
+	$('.list').html('<ul class=family>')
+	var family = contactCollection.where({category_id: 2});
+	family.forEach(function(member){
+		$('ul.family').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + member.attributes.name + '</a></li>')
 	});
+});
 
-	$('button.work').on('click', function(){
-		$('.list').html('<ul class=work>')
-		var work = contactCollection.where({category_id: 3});
-		work.forEach(function(worker){
-			$('ul.work').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + worker.attributes.name + '</a></li>')
-		});
+$('button.work').on('click', function(){
+	$('.list').html('<ul class=work>')
+	var work = contactCollection.where({category_id: 3});
+	work.forEach(function(worker){
+		$('ul.work').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + worker.attributes.name + '</a></li>')
 	});
+});
 
-	$('input.search').on('keyup', function(){
-		$('.list').html('<ul class=searchResults>')
-		var contacts = contactCollection.models;
-		var results = _.filter(contacts, function(contact){
-			return contact.attributes.name.indexOf($('input.search').val()) != -1
-		});
-		results.forEach(function(result){
-			$('ul.searchResults').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + result.attributes.name + '</a></li>')
-		});
-	})
+$('input.search').on('keyup', function(){
+	$('.list').html('<ul class=searchResults>')
+	var contacts = contactCollection.models;
+	var results = _.filter(contacts, function(contact){
+		return contact.attributes.name.indexOf($('input.search').val()) != -1
+	});
+	results.forEach(function(result){
+		$('ul.searchResults').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + result.attributes.name + '</a></li>')
+	});
+})
 
 });

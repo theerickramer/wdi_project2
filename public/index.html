@@ -9,6 +9,7 @@
 	<script src="javascripts/scripts.js"></script>
 	<link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
 	<link href="stylesheets/styles.css" rel="stylesheet">
+	<script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
 
 	<script type="text/template" id="list_template">
 	<a href="#" data-toggle="modal" data-target="#myModal"><%= name %></a>
@@ -42,7 +43,8 @@
 	<p>Address: <%= address %></p>
 	<p>Phone: <%= phone_number %></p>
 	<p>Category: 
-	<%= category_id == 1 ? 'Friends' : category_id == 2 ? 'Family' : 'Work' %></p> 
+	<%= category_id == 1 ? 'Friends' : category_id == 2 ? 'Family' : 'Work' %></p>
+	<div id="map-canvas" style="width: 25%; height: 25%"></div>
 	</script>
 
 	<script type="text/template" id="modal_form_footer">

@@ -13,7 +13,8 @@ li {
 .search {
 	margin-bottom: 15px;
 	margin-right: 5px;
-	padding: 2px;
-	/*border-radius: 10px;*/
+	padding: 5px;
+	border-radius: 15px;
 	border: 1px solid grey;
+	outline-style: none;
 }
