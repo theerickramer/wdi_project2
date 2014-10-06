@@ -147,6 +147,9 @@ $(function(){
 			var phone = this.$el.find('input[name="phone"]').val(); 
 			var cat_id = this.$el.find(('.dropdown option:selected')).val(); 
 			var picture = this.$el.find('input[name="picture"]').val();
+			
+			var randomImage = false;
+
 			if ($('.randomImage').prop('checked') == true) {
 				$.ajax({
 				  url: 'http://api.randomuser.me/',
@@ -156,6 +159,7 @@ $(function(){
 				    createContact(randomPicture);
 				  }
 				});
+				randomImage = true;
 			} else {
 				createContact(picture);
 			};
@@ -167,7 +171,7 @@ $(function(){
 			}
 
 			function createContact(image){
-				if (name.length > 0 && age > 0 && address.length > 0 && phone_number.length > 0 && picture.length > 0 && category_id > 0) {
+				if (name.length > 0 && age > 0 && address.length > 0 && phone.length > 0 && picture.length > 0 && cat_id > 0) {
 					contactCollection.create({
 					name: name,
 					age: age,
@@ -187,11 +191,20 @@ $(function(){
 						$('.modal').find('input[name="phone"]').val(phone);
 						$('.modal').find(('.dropdown option:selected')).val(cat_id);
 						$('.modal').find('input[name="picture"]').val(picture);
-						isEmpty($('.modal').find($('input[name="name"]')))
-						isEmpty($('.modal').find($('input[name="age"]')))
-						isEmpty($('.modal').find($('input[name="address"]')))
-						isEmpty($('.modal').find($('input[name="phone"]')))
-						isEmpty($('.modal').find($('input[name="picture"]')))
+						if (randomImage == true) {
+							$('.randomImage').prop('checked', true);
+							$('.modal').find('input[name="picture"]').val('random');
+						}
+						if (cat_id != '') {
+							$('.modal').find('.dropdown option:selected').val(cat_id)
+						}
+						isEmpty($('.modal').find($('input[name="name"]')));
+						isEmpty($('.modal').find($('input[name="age"]')));
+						isEmpty($('.modal').find($('input[name="address"]')));
+						isEmpty($('.modal').find($('input[name="phone"]')));
+						if (randomImage == false) {
+							isEmpty($('.modal').find($('input[name="picture"]')))
+						};
 						isEmpty($('.modal').find($('select')))
 						$('.modal .btn').on('click', function(){
 							$('.modal-header').text('');
