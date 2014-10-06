@@ -417,7 +417,7 @@ $('input.search').on('keyup', function(){
 	$('.list').html('<ul class=searchResults>')
 	var contacts = contactCollection.models;
 	var results = _.filter(contacts, function(contact){
-		return contact.attributes.name.indexOf($('input.search').val()) != -1
+		return contact.attributes.name.toLowerCase().indexOf($('input.search').val().toLowerCase()) != -1
 	});
 	results.forEach(function(result){
 		$('ul.searchResults').append('<li><a href="#" data-toggle="modal" data-target="#myModal">' + result.attributes.name + '</a></li>')

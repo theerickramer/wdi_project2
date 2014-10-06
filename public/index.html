@@ -90,15 +90,23 @@
 	</header>
 
 	<div class="row">
-		<nav>
-			<div class="col-md-4">
+		<nav class ="mmenu">
+			<div class="col-md-3">
 				<ul>
+					<li>
+						<div class="input-group">
+	    				<input type="text" class="form-control search" name="search" autocomplete="off">
+	   						<span class="input-group-addon">
+	   							<i class="glyphicon glyphicon-search"></i>
+								</span>
+						</div>
+					</li>
 					<li>
 						<div class="form">
 							<button class="openModal btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-								New Contact</button>
+								New</button>
 							</li>
-							<li class="all"><button class="all btn btn-primary btn-lg">All Contacts</a></li>
+							<li class="all"><button class="all btn btn-primary btn-lg">All</a></li>
 							<li class="friends"><button class="friends btn btn-primary btn-lg">Friends</a></li>
 							<li class="family"><button class="family btn btn-primary btn-lg">Family</a></li>
 							<li class="work"><button class="work btn btn-primary btn-lg">Work</a></li>
@@ -106,9 +114,7 @@
 					</div>
 				</nav>
 
-				<section class="col-md-4 contacts">
-					<input class="search" type="text" name="search">
-					<span class="glyphicon glyphicon-search"></span>
+				<section class="col-md-4 col-md-offset-1 contacts">
 					<div class="list">
 						<ul class="all">
 						</ul>

@@ -1,5 +1,10 @@
+header {
+	margin-bottom: 20px;
+}
+
 li {
 	list-style-type: none;
+	width: 215px;
 	margin-bottom: 20px;
 }
 
@@ -11,10 +16,14 @@ li {
 }
 
 .search {
-	margin-bottom: 15px;
-	margin-right: 5px;
+	width: 100px;
 	padding: 5px;
-	border-radius: 15px;
+	border-radius: 5px;
 	border: 1px solid grey;
 	outline-style: none;
+}
+
+button {
+	width: 215px;
+	background-color: grey;
 }
