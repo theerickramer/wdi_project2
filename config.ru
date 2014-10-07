@@ -1,5 +1,3 @@
-#\ -w -p 4567
-
 require 'rack/parser'
 
 use Rack::Parser, :content_types => {
