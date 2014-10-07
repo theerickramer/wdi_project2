@@ -9,8 +9,10 @@ li {
 }
 
 .dropdown {
-	height: 28px;
-	width: 161px;
+	/*height: 28px;
+	width: 161px;*/
+	width: 176px;
+	height: 25px;
 	display: inline-block;
 	margin: 2px 0 0 0;
 }
@@ -26,4 +28,8 @@ li {
 button {
 	width: 215px;
 	background-color: grey;
+}
+
+.close {
+	width: 20px;
 }
