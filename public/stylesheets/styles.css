@@ -37,3 +37,7 @@ button {
 img {
 	height: 120px;
 }
+
+.modal-header {
+	height: 40px;
+}
