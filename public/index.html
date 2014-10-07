@@ -65,11 +65,11 @@
 
 	<script type="text/template" id="edit_template">
 	<div class="form">
-	<input type="text" name="name" value="<%= name %>">
-	<input type="text" name="age" value="<%= age %>">
-	<input type="text" name="address" value="<%= address %>">
-	<input type="text" name="phone" value="<%= phone_number %>">
-	<input type="text" name="picture" value="<%= picture %>">
+	<input type="text" name="name" value="<%= name %>" placeholder="Name">
+	<input type="text" name="age" value="<%= age %>" placeholder="Age">
+	<input type="text" name="address" value="<%= address %>" placeholder="Address">
+	<input type="text" name="phone" value="<%= phone_number %>" placeholder="Phone">
+	<input type="text" name="picture" value="<%= picture %>" placeholder="Picture">
 	<select class="dropdown dropdown-toggle form-control cat_id">
 	<option class="dropdown-toggle" value="disabled"><%= category_id == 1 ? 'Friends' : category_id == 2 ? 'Family' : 'Work' %></option>
 	<%= category_id != 1 ? '<option value="1">Friends</option>' : '' %>
