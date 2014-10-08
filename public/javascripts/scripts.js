@@ -171,7 +171,7 @@ $(function(){
 			}
 
 			function createContact(image){
-				if (name.length > 0 && age > 0 && address.length > 0 && phone.length > 0 && picture.length > 0 && cat_id > 0) {
+				if (name != '' && age != '' && address != '' && phone != '' && image != '' && cat_id != '') {
 					debugger;
 					contactCollection.create({
 						name: name,
